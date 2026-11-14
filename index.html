@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Offutt AFB First Sergeant Resource Portal</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --bg-dark: #111827;
@@ -23,479 +21,73 @@
       --tag-blue: #1e40af;
       --tag-green: #166534;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-white);
-      padding: 16px;
-      max-width: 480px;
-      margin: 0 auto;
-      padding-bottom: 70px;
-    }
-
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .btn-back, .btn-edit-toggle {
-      background-color: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--card-border);
-      color: var(--accent-yellow);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 9px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-
-    .btn-edit-toggle.active {
-      background-color: var(--accent-yellow);
-      color: #111827;
-      border-color: var(--accent-yellow);
-    }
-
-    header {
-      text-align: center;
-      padding: 20px 10px 14px 10px;
-    }
-
-    .compass-icon {
-      font-size: 30px;
-      margin-bottom: 6px;
-    }
-
-    .resource-badge {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--accent-yellow);
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.95rem;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      color: var(--text-gray);
-      font-size: 0.9rem;
-      line-height: 1.45;
-      margin-bottom: 14px;
-    }
-
-    .btn-copy {
-      background-color: transparent;
-      border: 1px solid var(--text-gray);
-      color: var(--text-white);
-      font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      padding: 7px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    /* Section Containers & 3-Column Button Grids */
-    .grid-section, .quick-call-section {
-      border: 1px solid var(--card-border);
-      background-color: rgba(17, 24, 39, 0.75);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 18px;
-    }
-
-    .section-label {
-      color: var(--accent-yellow);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .button-grid, .quick-call-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .grid-btn, .call-btn {
-      position: relative;
-      border: none;
-      text-decoration: none;
-      background-color: var(--card-white);
-      color: #111827;
-      border-radius: 8px;
-      padding: 12px 6px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 66px;
-      cursor: pointer;
-      transition: transform 0.1s ease;
-      width: 100%;
-    }
-
-    .grid-btn:active, .call-btn:active {
-      transform: scale(0.95);
-    }
-
-    .call-btn.emergency {
-      background-color: var(--emergency-red);
-      color: white;
-    }
-
-    .grid-btn h3, .call-btn h3 {
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 3px;
-      line-height: 1.2;
-    }
-
-    .grid-btn span, .call-btn span {
-      font-size: 9.5px;
-      opacity: 0.85;
-    }
-
-    /* QR Box */
-    .qr-container {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .qr-box {
-      border: 2px solid var(--accent-yellow);
-      background-color: white;
-      padding: 8px;
-      border-radius: 12px;
-      display: inline-block;
-    }
-
-    .qr-box img {
-      display: block;
-      width: 115px;
-      height: 115px;
-    }
-
-    .qr-caption {
-      color: var(--text-gray);
-      font-size: 11px;
-      margin-top: 6px;
-    }
-
-    /* Filter Pills */
-    .filters-scroll {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 16px;
-      scrollbar-width: none;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-white); padding: 16px; max-width: 480px; margin: 0 auto; padding-bottom: 70px; }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; }
+    .btn-back, .btn-edit-toggle { background-color: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: var(--accent-yellow); font-size: 12px; font-weight: 700; padding: 9px 14px; border-radius: 20px; cursor: pointer; }
+    .btn-edit-toggle.active { background-color: var(--accent-yellow); color: #111827; border-color: var(--accent-yellow); }
+    header { text-align: center; padding: 20px 10px 14px 10px; }
+    .compass-icon { font-size: 30px; margin-bottom: 6px; }
+    .resource-badge { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-yellow); font-weight: 700; margin-bottom: 6px; display: block; }
+    h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.95rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+    .subtitle { color: var(--text-gray); font-size: 0.9rem; line-height: 1.45; margin-bottom: 14px; }
+    .btn-copy { background-color: transparent; border: 1px solid var(--text-gray); color: var(--text-white); font-weight: 700; font-size: 11px; letter-spacing: 1.5px; padding: 7px 20px; border-radius: 20px; cursor: pointer; text-transform: uppercase; margin-bottom: 14px; }
+    .grid-section, .quick-call-section { border: 1px solid var(--card-border); background-color: rgba(17,24,39,0.75); border-radius: 12px; padding: 16px; margin-bottom: 18px; }
+    .section-label { color: var(--accent-yellow); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .button-grid, .quick-call-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .grid-btn, .call-btn { position: relative; border: none; text-decoration: none; background-color: var(--card-white); color: #111827; border-radius: 8px; padding: 12px 6px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 66px; cursor: pointer; transition: transform 0.1s ease; width: 100%; }
+    .grid-btn:active, .call-btn:active { transform: scale(0.95); }
+    .call-btn.emergency { background-color: var(--emergency-red); color: white; }
+    .grid-btn h3, .call-btn h3 { font-size: 11px; font-weight: 700; margin-bottom: 3px; line-height: 1.2; }
+    .grid-btn span, .call-btn span { font-size: 9.5px; opacity: 0.85; }
+    .qr-container { text-align: center; margin-bottom: 20px; }
+    .qr-box { border: 2px solid var(--accent-yellow); background-color: white; padding: 8px; border-radius: 12px; display: inline-block; }
+    .qr-box img { display: block; width: 115px; height: 115px; }
+    .qr-caption { color: var(--text-gray); font-size: 11px; margin-top: 6px; }
+    .filters-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; scrollbar-width: none; }
     .filters-scroll::-webkit-scrollbar { display: none; }
-
-    .filter-pill {
-      background-color: transparent;
-      border: 1px solid var(--card-border);
-      color: var(--text-gray);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .filter-pill.active {
-      background-color: var(--accent-yellow);
-      color: #111827;
-      border-color: var(--accent-yellow);
-    }
-
-    /* Document Cards */
-    .document-list, .embed-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .doc-card {
-      text-decoration: none;
-      background-color: var(--card-white);
-      color: #111827;
-      border-radius: 12px;
-      padding: 20px;
-      position: relative;
-      display: block;
-      transition: transform 0.15s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    .doc-card::before, .doc-card::after {
-      content: "";
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      height: 6px;
-      background-size: 12px 6px;
-    }
-
-    .doc-card::before {
-      top: -3px;
-      background-image: radial-gradient(circle at 6px -3px, transparent 6px, var(--card-white) 7px);
-    }
-
-    .doc-card::after {
-      bottom: -3px;
-      background-image: radial-gradient(circle at 6px 9px, transparent 6px, var(--card-white) 7px);
-    }
-
-    .doc-tag {
-      background-color: var(--tag-orange);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
+    .filter-pill { background-color: transparent; border: 1px solid var(--card-border); color: var(--text-gray); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .filter-pill.active { background-color: var(--accent-yellow); color: #111827; border-color: var(--accent-yellow); }
+    .document-list, .embed-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+    .doc-card { text-decoration: none; background-color: var(--card-white); color: #111827; border-radius: 12px; padding: 20px; position: relative; display: block; transition: transform 0.15s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.25); }
+    .doc-card::before, .doc-card::after { content: ""; position: absolute; left: 10px; right: 10px; height: 6px; background-size: 12px 6px; }
+    .doc-card::before { top: -3px; background-image: radial-gradient(circle at 6px -3px, transparent 6px, var(--card-white) 7px); }
+    .doc-card::after { bottom: -3px; background-image: radial-gradient(circle at 6px 9px, transparent 6px, var(--card-white) 7px); }
+    .doc-tag { background-color: var(--tag-orange); color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
     .doc-tag.blue { background-color: var(--tag-blue); }
     .doc-tag.green { background-color: var(--tag-green); }
-
-    .doc-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 6px;
-      padding-right: 28px;
-    }
-
-    .doc-desc {
-      font-size: 12px;
-      color: #4b5563;
-      line-height: 1.4;
-    }
-
-    .arrow-icon {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      font-size: 16px;
-      color: #9ca3af;
-      font-weight: bold;
-    }
-
-    .embed-card {
-      background-color: #1f2937;
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 14px;
-      position: relative;
-    }
-
-    .embed-card h3 {
-      font-size: 0.95rem;
-      color: var(--accent-yellow);
-      margin-bottom: 10px;
-    }
-
-    .embed-frame-wrap {
-      width: 100%;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .embed-frame-wrap iframe {
-      width: 100%;
-      height: 260px;
-      border: none;
-      display: block;
-    }
-
-    /* ================= SHIRT ADMIN EDITOR PANEL ================= */
-    .admin-panel {
-      border: 2px solid var(--accent-yellow);
-      background-color: #1e293b;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 24px;
-    }
-
-    .admin-panel h2 {
-      font-size: 1rem;
-      color: var(--accent-yellow);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .admin-panel p {
-      font-size: 12px;
-      color: var(--text-gray);
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-
-    .admin-btn-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .btn-admin {
-      background-color: #334155;
-      color: white;
-      border: 1px solid #475569;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .btn-admin.primary {
-      background-color: var(--accent-yellow);
-      color: #111827;
-      border-color: var(--accent-yellow);
-      font-weight: 700;
-    }
-
-    .btn-admin.save-cloud {
-      grid-column: span 2;
-      background-color: var(--action-green);
-      border-color: var(--action-green);
-      color: white;
-      font-size: 13px;
-      padding: 12px;
-    }
-
-    /* Edit / Delete Mini Badges */
-    .item-controls {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    .ctrl-btn {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-
+    .doc-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; font-weight: 700; line-height: 1.3; margin-bottom: 6px; padding-right: 28px; }
+    .doc-desc { font-size: 12px; color: #4b5563; line-height: 1.4; }
+    .arrow-icon { position: absolute; right: 20px; top: 20px; font-size: 16px; color: #9ca3af; font-weight: bold; }
+    .embed-card { background-color: #1f2937; border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; position: relative; }
+    .embed-card h3 { font-size: 0.95rem; color: var(--accent-yellow); margin-bottom: 10px; }
+    .embed-frame-wrap { width: 100%; border-radius: 8px; overflow: hidden; background: #000; }
+    .embed-frame-wrap iframe { width: 100%; height: 260px; border: none; display: block; }
+    .admin-panel { border: 2px solid var(--accent-yellow); background-color: #1e293b; border-radius: 14px; padding: 16px; margin-bottom: 24px; }
+    .admin-panel h2 { font-size: 1rem; color: var(--accent-yellow); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+    .admin-panel p { font-size: 12px; color: var(--text-gray); margin-bottom: 14px; line-height: 1.4; }
+    .admin-btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .btn-admin { background-color: #334155; color: white; border: 1px solid #475569; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center; }
+    .btn-admin.primary { background-color: var(--accent-yellow); color: #111827; border-color: var(--accent-yellow); font-weight: 700; }
+    .btn-admin.save-cloud { grid-column: span 2; background-color: var(--action-green); border-color: var(--action-green); color: white; font-size: 13px; padding: 12px; }
+    .item-controls { display: flex; gap: 6px; margin-top: 10px; }
+    .ctrl-btn { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; border: none; cursor: pointer; text-transform: uppercase; }
     .ctrl-edit { background-color: #2563eb; color: white; }
     .ctrl-del { background-color: #dc2626; color: white; }
-
-    /* Modal Form Popup */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      z-index: 999;
-    }
-
-    .modal-box {
-      background-color: #1e293b;
-      border: 1px solid var(--accent-yellow);
-      border-radius: 14px;
-      padding: 20px;
-      width: 100%;
-      max-width: 420px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-box h3 {
-      color: var(--accent-yellow);
-      margin-bottom: 14px;
-      font-size: 1.1rem;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 11px;
-      color: var(--text-gray);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #475569;
-      background-color: #0f172a;
-      color: white;
-      font-size: 13px;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; justify-content: center; align-items: center; padding: 16px; z-index: 999; }
+    .modal-box { background-color: #1e293b; border: 1px solid var(--accent-yellow); border-radius: 14px; padding: 20px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; }
+    .modal-box h3 { color: var(--accent-yellow); margin-bottom: 14px; font-size: 1.1rem; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 11px; color: var(--text-gray); margin-bottom: 4px; text-transform: uppercase; font-weight: 600; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #475569; background-color: #0f172a; color: white; font-size: 13px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
     .hidden { display: none !important; }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 11px;
-      color: var(--text-gray);
-      line-height: 1.6;
-    }
+    footer { text-align: center; margin-top: 40px; font-size: 11px; color: var(--text-gray); line-height: 1.6; }
   </style>
 </head>
 <body>
 
-  <!-- ================= VIEW 1: OFFUTT AFB SQUADRON DIRECTORY ================= -->
+  <!-- VIEW 1: DIRECTORY -->
   <div id="directoryView">
     <header>
       <div class="compass-icon">❖</div>
@@ -503,22 +95,212 @@
       <h1>Offutt AFB Units</h1>
       <p class="subtitle">Tap your squadron button below to open your First Sergeant's resource hub, emergency dial grid, and guides.</p>
     </header>
-
     <div id="directoryContainer"></div>
-
     <footer>
       <p>Offutt Air Force Base, NE • Publicly Available Information (PAI) Only</p>
     </footer>
   </div>
 
-  <!-- ================= VIEW 2: INDIVIDUAL SQUADRON HUB ================= -->
+  <!-- VIEW 2: INDIVIDUAL UNIT -->
   <div id="unitView" class="hidden">
     <div class="top-nav">
       <button class="btn-back" onclick="showDirectory()">← All Offutt Units</button>
       <button class="btn-edit-toggle" id="editToggleBtn" onclick="toggleEditMode()">🔒 Shirt Edit Mode</button>
     </div>
 
-    <!-- SHIRT INTERACTIVE ADMIN TOOLBAR -->
+    <!-- ADMIN EDIT PANEL -->
     <div id="adminPanel" class="admin-panel hidden">
       <h2>🛠️ First Sergeant Live Editor</h2>
-      <p>Add, edit, or remove phone numbers, do
+      <p>Edit phone numbers, documents, and embeds below. Changes save to this device immediately. Use GitHub Sync to publish live base-wide.</p>
+      <div class="admin-btn-row">
+        <button class="btn-admin primary" onclick="openPhoneModal()">+ Add Phone Button</button>
+        <button class="btn-admin primary" onclick="openDocModal()">+ Add Link / Doc</button>
+        <button class="btn-admin" onclick="openEmbedModal()">📺 Add Live Embed</button>
+        <button class="btn-admin" onclick="openUnitInfoModal()">✏️ Edit Header</button>
+        <button class="btn-admin" onclick="openGitHubConfigModal()">⚙️ GitHub Sync Config</button>
+        <button class="btn-admin save-cloud" onclick="saveToGitHub()">☁️ Publish Live to GitHub</button>
+      </div>
+    </div>
+
+    <header>
+      <div class="compass-icon">🧭</div>
+      <span class="resource-badge" id="unitBadge">Resource Hub</span>
+      <h1 id="unitTitle">Squadron Name</h1>
+      <p class="subtitle" id="unitSubtitle">Unit description</p>
+      <button class="btn-copy" onclick="copyUnitLink()">Copy Unit Link</button>
+    </header>
+
+    <div class="qr-container">
+      <div class="qr-box">
+        <img id="qrImage" src="" alt="Unit QR Code">
+      </div>
+      <div class="qr-caption">Scan to open this unit's hub directly</div>
+    </div>
+
+    <!-- 3x3 Emergency Grid -->
+    <div class="quick-call-section">
+      <div class="section-label">Offutt Emergency Quick Call</div>
+      <div class="quick-call-grid" id="phoneGrid"></div>
+    </div>
+
+    <!-- Embed Section -->
+    <div id="embedSection" class="hidden">
+      <div class="section-label" style="margin: 0 0 10px 4px;">📌 Featured Unit Embeds</div>
+      <div class="embed-list" id="embedList"></div>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filters-scroll">
+      <button class="filter-pill active" onclick="filterCategory('all', this)">All</button>
+      <button class="filter-pill" onclick="filterCategory('AFIs', this)">AFIs</button>
+      <button class="filter-pill" onclick="filterCategory('Tools', this)">Tools</button>
+      <button class="filter-pill" onclick="filterCategory('Checklist', this)">Checklist</button>
+      <button class="filter-pill" onclick="filterCategory('Offutt', this)">Offutt Resources</button>
+    </div>
+
+    <div class="document-list" id="docList"></div>
+    <footer id="unitFooter"></footer>
+  </div>
+
+  <!-- MODAL POPUP -->
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'OFFUTT_1SGT_DATA_V3';
+
+    const CORE_PHONES = [
+      { label: "911", sub: "Emergency", tel: "911", emergency: true },
+      { label: "988, press 1", sub: "Crisis Line", tel: "988" },
+      { label: "BDOC / SFS", sub: "402-294-6110", tel: "402-294-6110" },
+      { label: "Command Post", sub: "402-294-3725", tel: "402-294-3725" },
+      { label: "55 MDG / MH", sub: "402-232-2273", tel: "402-232-2273" },
+      { label: "SARC 24/7", sub: "402-232-9999", tel: "402-232-9999" },
+      { label: "Wing Chapel", sub: "402-294-6244", tel: "402-294-6244" },
+      { label: "Family Advocacy", sub: "402-294-7886", tel: "402-294-7886" }
+    ];
+
+    const CORE_DOCS = [
+      { tag: "OFFUTT-01", tagColor: "blue", category: "Offutt", title: "Offutt Phone Directory", desc: "Official base phone directory PDF.", url: "https://www.offutt.af.mil/Portals/97/Resources/2025-26_OffuttPhoneDirectory.pdf" },
+      { tag: "OFFUTT-02", tagColor: "blue", category: "Offutt", title: "M&FRC & Legal (ADC)", desc: "M&FRC (402-294-4329) • ADC (402-294-3939).", url: "https://www.offutt.af.mil/Resources/Newcomer/" },
+      { tag: "GDE-01", tagColor: "", category: "Tools", title: "Tongue and Quill (DAFH 33-337)", desc: "AF correspondence standards.", url: "https://www.e-publishing.af.mil/" },
+      { tag: "AFI-01", tagColor: "", category: "AFIs", title: "Dress & Appearance (DAFI 36-2903)", desc: "Uniform and grooming standards.", url: "https://www.e-publishing.af.mil/" },
+      { tag: "AFI-02", tagColor: "", category: "AFIs", title: "Evaluations (DAFI 36-2406)", desc: "EPB, OPB, and ACA policy.", url: "https://www.e-publishing.af.mil/" },
+      { tag: "AFI-03", tagColor: "", category: "AFIs", title: "Leave Program (DAFI 36-3003)", desc: "Emergency leave, passes, and rules.", url: "https://www.e-publishing.af.mil/" },
+      { tag: "CHK-01", tagColor: "green", category: "Checklist", title: "American Red Cross", desc: "24/7 Emergency Leave verification (877-272-7337).", url: "https://www.redcross.org/" }
+    ];
+
+    const GROUPS = {
+      "Tenant": "Partner Units & Tenants",
+      "55 OG": "55th Operations Group",
+      "55 MSG": "55th Mission Support Group",
+      "55 MXG/CG": "55th Maintenance & Comm Groups",
+      "55 MDG/WG": "55th Medical & Wing Staff",
+      "95 WG": "95th Wing (AFGSC)",
+      "557 WW": "557th Weather Wing"
+    };
+
+    const BASE_UNITS = {
+      "343rcs": { group: "Tenant", short: "343 RCS", sub: "Recruiting", badge: "372 RCG • PARTNER", name: "343rd Recruiting Squadron", desc: "Offutt HQ & Dispersed Recruiters (NE/IA/MN/ND/SD/WI)", shirtTel: "402-232-3502" },
+      "stratcom": { group: "Tenant", short: "STRATCOM", sub: "Joint", badge: "COMBATANT COMMAND", name: "US Strategic Command", desc: "Command HQ Enlisted Support", shirtTel: "402-294-4112" },
+      "170gp": { group: "Tenant", short: "170 GP", sub: "NE ANG", badge: "NEBRASKA ANG", name: "170th Group", desc: "Total Force Partner", shirtTel: "402-294-3725" },
+      "dpaa": { group: "Tenant", short: "DPAA", sub: "DPAA Lab", badge: "DOD AGENCY", name: "DPAA Annex Lab", desc: "Defense POW/MIA Accounting", shirtTel: "402-294-3725" },
+      "band": { group: "Tenant", short: "BAND", sub: "Heartland", badge: "PUBLIC AFFAIRS", name: "Heartland of America Band", desc: "USAF Band", shirtTel: "402-294-6046" },
+      "38rs": { group: "55 OG", short: "38 RS", sub: "Recon", badge: "55TH OPERATIONS GROUP", name: "38th Recon Squadron", desc: "RC-135V/W Operations", shirtTel: "402-294-3725" },
+      "45rs": { group: "55 OG", short: "45 RS", sub: "Recon", badge: "55TH OPERATIONS GROUP", name: "45th Recon Squadron", desc: "Cobra Ball & Combat Sent", shirtTel: "402-294-3725" },
+      "55iss": { group: "55 OG", short: "55 ISS", sub: "Intel", badge: "55TH OPERATIONS GROUP", name: "55th Intel Support Sq", desc: "Intel Operations", shirtTel: "402-294-3725" },
+      "55oss": { group: "55 OG", short: "55 OSS", sub: "Ops Support", badge: "55TH OPERATIONS GROUP", name: "55th Ops Support Sq", desc: "Airfield Operations & Weather", shirtTel: "402-294-3725" },
+      "97is": { group: "55 OG", short: "97 IS", sub: "Intel", badge: "55TH OPERATIONS GROUP", name: "97th Intelligence Sq", desc: "Airborne Cryptologic Ops", shirtTel: "402-294-4477" },
+      "338cts": { group: "55 OG", short: "338 CTS", sub: "Training", badge: "55TH OPERATIONS GROUP", name: "338th Combat Training Sq", desc: "RC-135 Formal Training", shirtTel: "402-294-3725" },
+      "343rs": { group: "55 OG", short: "343 RS", sub: "Recon", badge: "55TH OPERATIONS GROUP", name: "343rd Recon Squadron", desc: "RC-135V/W Rivet Joint", shirtTel: "402-294-3725" },
+      "390is": { group: "55 OG", short: "390 IS", sub: "Intel", badge: "55TH OPERATIONS GROUP", name: "390th Intelligence Sq", desc: "Operations Intelligence", shirtTel: "402-294-3725" },
+      "55ces": { group: "55 MSG", short: "55 CES", sub: "Engineers", badge: "55TH MISSION SUPPORT", name: "55th Civil Engineer Sq", desc: "Base Engineering & Fire", shirtTel: "402-294-3725" },
+      "55cons": { group: "55 MSG", short: "55 CONS", sub: "Contracts", badge: "55TH MISSION SUPPORT", name: "55th Contracting Sq", desc: "Operational Acquisitions", shirtTel: "402-294-3725" },
+      "55fss": { group: "55 MSG", short: "55 FSS", sub: "Force Support", badge: "55TH MISSION SUPPORT", name: "55th Force Support Sq", desc: "MPF, M&FRC, Lodging", shirtTel: "402-294-3725" },
+      "55lrs": { group: "55 MSG", short: "55 LRS", sub: "Logistics", badge: "55TH MISSION SUPPORT", name: "55th Logistics Readiness", desc: "Supply & Deployment", shirtTel: "402-294-3445" },
+      "55sfs": { group: "55 MSG", short: "55 SFS", sub: "Sec Forces", badge: "55TH MISSION SUPPORT", name: "55th Security Forces Sq", desc: "Base Defense & LE", shirtTel: "402-294-6110" },
+      "55amxs": { group: "55 MXG/CG", short: "55 AMXS", sub: "Aircraft Mx", badge: "55TH MAINTENANCE", name: "55th Aircraft Mx Sq", desc: "Flightline Generation", shirtTel: "402-294-3725" },
+      "55mxs": { group: "55 MXG/CG", short: "55 MXS", sub: "Backshop", badge: "55TH MAINTENANCE", name: "55th Maintenance Sq", desc: "Backshop & Munitions", shirtTel: "402-294-3725" },
+      "55cys": { group: "55 MXG/CG", short: "55 CYS", sub: "Cyber", badge: "55TH COMM GROUP", name: "55th Cyberspace Sq", desc: "Base Cyber Defense", shirtTel: "402-294-3725" },
+      "55scs": { group: "55 MXG/CG", short: "55 SCS", sub: "Strat Comm", badge: "55TH COMM GROUP", name: "55th Strat Comm Sq", desc: "Command & Control Comm", shirtTel: "402-294-3725" },
+      "55omrs": { group: "55 MDG/WG", short: "55 OMRS", sub: "Medical", badge: "55TH MEDICAL GROUP", name: "55th Operational Medical", desc: "Clinic & Flight Medicine", shirtTel: "402-232-2273" },
+      "55mhos": { group: "55 MDG/WG", short: "55 MHOS", sub: "Hospital", badge: "55TH MEDICAL GROUP", name: "55th Healthcare Ops Sq", desc: "Clinic Operations", shirtTel: "402-232-2273" },
+      "55wsa": { group: "55 MDG/WG", short: "55 WSA", sub: "Wing Staff", badge: "55TH WING STAFF", name: "55th Wing Staff & CPTS", desc: "Finance, Safety, Legal", shirtTel: "402-294-3725" },
+      "1accs": { group: "95 WG", short: "1 ACCS", sub: "E-4B Ops", badge: "95TH WING", name: "1st Airborne Command Control", desc: "E-4B Nightwatch Operations", shirtTel: "402-294-5696" },
+      "95oss": { group: "95 WG", short: "95 WG", sub: "Ops & Mx", badge: "95TH WING", name: "95th Operations & Mx", desc: "95th OSS & Maintenance", shirtTel: "402-294-6618" },
+      "557ww": { group: "557 WW", short: "557 WW", sub: "Weather", badge: "557TH WEATHER WING", name: "557th Weather Wing", desc: "Operational Weather Squadrons", shirtTel: "402-294-7380" }
+    };
+
+    let UNITS = {};
+    let currentKey = null;
+    let editMode = false;
+
+    function initData() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { UNITS = JSON.parse(saved); } catch (e) { UNITS = JSON.parse(JSON.stringify(BASE_UNITS)); }
+      } else {
+        UNITS = JSON.parse(JSON.stringify(BASE_UNITS));
+      }
+
+      Object.keys(UNITS).forEach(k => {
+        const u = UNITS[k];
+        if (!u.phones) {
+          u.phones = [
+            ...JSON.parse(JSON.stringify(CORE_PHONES)),
+            { label: "1st Sergeant", sub: u.shirtTel || "402-294-3725", tel: u.shirtTel || "402-294-3725" }
+          ];
+        }
+        if (!u.docs) {
+          u.docs = JSON.parse(JSON.stringify(CORE_DOCS));
+        }
+        if (!u.embeds) {
+          u.embeds = [];
+        }
+      });
+    }
+
+    function saveLocal() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(UNITS));
+    }
+
+    function renderDirectory() {
+      const c = document.getElementById('directoryContainer');
+      c.innerHTML = '';
+
+      Object.keys(GROUPS).forEach(g => {
+        const wrap = document.createElement('div');
+        wrap.className = 'grid-section';
+
+        const lbl = document.createElement('div');
+        lbl.className = 'section-label';
+        lbl.innerText = GROUPS[g];
+        wrap.appendChild(lbl);
+
+        const grid = document.createElement('div');
+        grid.className = 'button-grid';
+
+        Object.keys(UNITS).forEach(k => {
+          const u = UNITS[k];
+          if (u.group === g) {
+            const btn = document.createElement('button');
+            btn.className = 'grid-btn';
+            btn.onclick = () => openUnit(k);
+            btn.innerHTML = `<h3>${u.short}</h3><span>${u.sub}</span>`;
+            grid.appendChild(btn);
+          }
+        });
+
+        wrap.appendChild(grid);
+        c.appendChild(wrap);
+      });
+    }
+
+    function openUnit(k) {
+      currentKey = k;
+      const u = UNITS[k];
+      if (!u) return;
+
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?unit=' + k;
+      window.history.pushState({ path: newUrl
