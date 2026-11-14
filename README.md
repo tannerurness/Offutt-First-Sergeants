@@ -1,1 +1,0 @@
-# Offutt-First-Sergeants
