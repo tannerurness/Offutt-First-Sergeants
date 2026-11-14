@@ -106,8 +106,132 @@
       margin-bottom: 18px;
     }
 
-    /* Grid Section Layouts */
-    .grid-section {
+    /* Group Category Section Headers */
+    .group-header {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--accent-yellow);
+      margin: 32px 0 14px 4px;
+      border-left: 3px solid var(--accent-yellow);
+      padding-left: 10px;
+    }
+
+    .unit-list, .document-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Enriched, Oversized Mobile Buttons / Ticket Stub Cards */
+    .unit-card, .doc-card {
+      text-decoration: none;
+      background-color: var(--card-white);
+      color: #111827;
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      text-align: left;
+      border: none;
+      width: 100%;
+    }
+
+    .unit-card:active, .doc-card:active {
+      transform: scale(0.97);
+    }
+
+    /* CSS Ticket-Stub Details */
+    .unit-card::before, .unit-card::after,
+    .doc-card::before, .doc-card::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      height: 8px;
+      background-size: 16px 8px;
+    }
+
+    .unit-card::before, .doc-card::before {
+      top: -4px;
+      background-image: radial-gradient(circle at 8px -4px, transparent 8px, var(--card-white) 9px);
+    }
+
+    .unit-card::after, .doc-card::after {
+      bottom: -4px;
+      background-image: radial-gradient(circle at 8px 12px, transparent 8px, var(--card-white) 9px);
+    }
+
+    .doc-tag {
+      background-color: var(--tag-orange);
+      color: white;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .doc-tag.blue { background-color: var(--tag-blue); }
+    .doc-tag.green { background-color: var(--tag-green); }
+
+    .doc-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 6px;
+      padding-right: 32px;
+    }
+
+    .doc-desc {
+      font-size: 13.5px;
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    .arrow-icon {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #4b5563;
+      font-weight: bold;
+    }
+
+    /* Individual Unit Page QR & Grid Style */
+    .qr-container {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .qr-box {
+      border: 2px solid var(--accent-yellow);
+      background-color: white;
+      padding: 8px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .qr-box img {
+      display: block;
+      width: 125px;
+      height: 125px;
+    }
+
+    .qr-caption {
+      color: var(--text-gray);
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    .quick-call-section {
       border: 1px solid var(--card-border);
       background-color: rgba(17, 24, 39, 0.7);
       border-radius: 12px;
@@ -124,16 +248,16 @@
       margin-bottom: 12px;
     }
 
-    /* 3-Column Grid matching the Quick-Call layout */
-    .button-grid {
+    /* Grid Section Layout (3 columns) */
+    .quick-call-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
 
-    /* Square, high-contrast button styling */
-    .grid-btn {
-      border: none;
+    /* Fixed class styling for 3x3 emergency buttons */
+    .call-btn {
+      text-decoration: none;
       background-color: var(--card-white);
       color: #111827;
       border-radius: 8px;
@@ -144,104 +268,27 @@
       justify-content: center;
       align-items: center;
       min-height: 64px;
-      cursor: pointer;
       transition: transform 0.1s ease;
-      text-decoration: none;
     }
 
-    .grid-btn:active {
+    .call-btn:active {
       transform: scale(0.95);
     }
 
-    .grid-btn h3 {
+    .call-btn.emergency {
+      background-color: var(--emergency-red);
+      color: white;
+    }
+
+    .call-btn h3 {
       font-size: 11px;
       font-weight: 700;
       margin-bottom: 3px;
-      line-height: 1.2;
     }
 
-    .grid-btn span {
-      font-size: 9px;
+    .call-btn span {
+      font-size: 9.5px;
       opacity: 0.85;
-      text-transform: uppercase;
-    }
-
-    /* Document Cards Styling */
-    .document-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .doc-card {
-      text-decoration: none;
-      background-color: var(--card-white);
-      color: #111827;
-      border-radius: 12px;
-      padding: 20px;
-      position: relative;
-      display: block;
-      transition: transform 0.15s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .doc-card:active {
-      transform: scale(0.98);
-    }
-
-    .doc-card::before, .doc-card::after {
-      content: "";
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      height: 6px;
-      background-size: 12px 6px;
-    }
-
-    .doc-card::before {
-      top: -3px;
-      background-image: radial-gradient(circle at 6px -3px, transparent 6px, var(--card-white) 7px);
-    }
-
-    .doc-card::after {
-      bottom: -3px;
-      background-image: radial-gradient(circle at 6px 9px, transparent 6px, var(--card-white) 7px);
-    }
-
-    .doc-tag {
-      background-color: var(--tag-orange);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .doc-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 6px;
-      padding-right: 24px;
-    }
-
-    .doc-desc {
-      font-size: 12px;
-      color: #4b5563;
-      line-height: 1.4;
-    }
-
-    .arrow-icon {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      font-size: 16px;
-      color: #9ca3af;
     }
 
     /* Category Filter Pills (Unit View Only) */
@@ -287,7 +334,7 @@
 </head>
 <body>
 
-  <!-- ================= VIEW 1: OFFUTT AFB SQUADRON DIRECTORY (ALL BUTTON GRIDS) ================= -->
+  <!-- ================= VIEW 1: OFFUTT AFB SQUADRON DIRECTORY ================= -->
   <div id="directoryView">
     <header>
       <div class="compass-icon">❖</div>
@@ -296,7 +343,6 @@
       <p class="subtitle">Select your squadron below to load your First Sergeant's resource hub, emergency dial grid, and guides.</p>
     </header>
 
-    <!-- Unified Directory (Groups Rendered in compact 3x3 Button Grids) -->
     <div id="directoryContainer"></div>
 
     <footer>
@@ -344,7 +390,6 @@
     <footer id="unitFooter"></footer>
   </div>
 
-  <!-- ================= OFFUTT AFB UNIT & RESOURCE DATABASE ================= -->
   <script>
     // Core Offutt AFB Emergency Numbers
     const OFFUTT_CORE_PHONES = [
@@ -358,7 +403,7 @@
       { label: "Family Advocacy", sub: "402-294-7886", tel: "402-294-7886" }
     ];
 
-    // Standardized Offutt AFB Documents
+    // Standardized Offutt AFB Documents (Included on every unit page)
     const SHARED_OFFUTT_DOCS = [
       {
         tag: "OFFUTT-01", tagColor: "blue", category: "Offutt",
@@ -410,23 +455,19 @@
       }
     ];
 
-    // Groups Order Map
     const GROUP_HEADERS = {
       "Tenant": "Partner Units & Tenants",
       "55 OG": "55th Operations Group",
       "55 MSG": "55th Mission Support Group",
-      "55 MXG/CG": "55th Maintenance & Comm",
-      "55 MDG/WG": "55th Medical & Wing Staff",
+      "55 MXG/CG": "55th Maintenance & Comm Groups",
+      "55 MDG/WG": "55th Medical Group & Wing Staff",
       "95 WG": "95th Wing (AFGSC)",
       "557 WW": "557th Weather Wing"
     };
 
-    // Offutt AFB Squadrons & Partner Units
     const OFFUTT_UNITS = {
-      // --- PARTNER / TENANT UNITS ---
       "343rcs": {
-        group: "Tenant", shortLabel: "343 RCS", subText: "Recruiting",
-        badge: "372 RCG • PARTNER UNIT",
+        group: "Tenant", badge: "372 RCG • PARTNER UNIT",
         name: "343rd Recruiting Squadron",
         subtitle: "Offutt AFB HQ & Dispersed Recruiters (NE • IA • MN • ND • SD • WI)",
         shirtTel: "402-232-3502",
@@ -440,249 +481,202 @@
         ]
       },
       "stratcom": {
-        group: "Tenant", shortLabel: "STRATCOM", subText: "Joint",
-        badge: "COMBATANT COMMAND",
+        group: "Tenant", badge: "COMBATANT COMMAND",
         name: "U.S. Strategic Command (USSTRATCOM)",
         subtitle: "Command HQ & Joint Enlisted Personnel Support",
         shirtTel: "402-294-4112", extraDocs: []
       },
       "170gp": {
-        group: "Tenant", shortLabel: "170 GP", subText: "NE ANG",
-        badge: "NEBRASKA ANG • PARTNER UNIT",
+        group: "Tenant", badge: "NEBRASKA ANG • PARTNER UNIT",
         name: "170th Group (170 OSS / 238 CTS / 170 ISS)",
         subtitle: "Nebraska Air National Guard Total Force Partner",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "dpaa": {
-        group: "Tenant", shortLabel: "DPAA", subText: "Defense Agency",
-        badge: "DOD AGENCY • PARTNER UNIT",
+        group: "Tenant", badge: "DOD AGENCY • PARTNER UNIT",
         name: "Defense POW/MIA Accounting Agency (DPAA)",
         subtitle: "DPAA CONUS Annex Laboratory & Staff",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "band": {
-        group: "Tenant", shortLabel: "BAND", subText: "Heartland",
-        badge: "PUBLIC AFFAIRS • PARTNER UNIT",
+        group: "Tenant", badge: "PUBLIC AFFAIRS • PARTNER UNIT",
         name: "USAF Heartland of America Band",
         subtitle: "10902 Redmond Rd, Offutt AFB",
         shirtTel: "402-294-6046", extraDocs: []
       },
-
-      // --- 55TH OPERATIONS GROUP ---
       "38rs": {
-        group: "55 OG", shortLabel: "38 RS", subText: "Recon",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "38th Reconnaissance Squadron",
         subtitle: "RC-135V/W Rivet Joint Operations",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "45rs": {
-        group: "55 OG", shortLabel: "45 RS", subText: "Recon",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "45th Reconnaissance Squadron",
         subtitle: "Cobra Ball, Combat Sent & Constant Phoenix Operations",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55iss": {
-        group: "55 OG", shortLabel: "55 ISS", subText: "Intel Support",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "55th Intelligence Support Squadron",
         subtitle: "Intelligence Operations & Mission Support",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55oss": {
-        group: "55 OG", shortLabel: "55 OSS", subText: "Ops Support",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "55th Operations Support Squadron",
         subtitle: "Airfield Operations, Intel, Weather & Training",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "97is": {
-        group: "55 OG", shortLabel: "97 IS", subText: "Intel",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "97th Intelligence Squadron",
         subtitle: "Airborne Cryptologic & Linguistic Operations",
         shirtTel: "402-294-4477", extraDocs: []
       },
       "338cts": {
-        group: "55 OG", shortLabel: "338 CTS", subText: "Training",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "338th Combat Training Squadron",
         subtitle: "RC-135 Formal Training Unit",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "343rs": {
-        group: "55 OG", shortLabel: "343 RS", subText: "Recon",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "343rd Reconnaissance Squadron",
         subtitle: "RC-135V/W Rivet Joint Operations",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "390is": {
-        group: "55 OG", shortLabel: "390 IS", subText: "Intel",
-        badge: "55TH OPERATIONS GROUP",
+        group: "55 OG", badge: "55TH OPERATIONS GROUP",
         name: "390th Intelligence Squadron",
         subtitle: "55th Operations Group Intelligence",
         shirtTel: "402-294-3725", extraDocs: []
       },
-
-      // --- 55TH MISSION SUPPORT GROUP ---
       "55ces": {
-        group: "55 MSG", shortLabel: "55 CES", subText: "Engineers",
-        badge: "55TH MISSION SUPPORT GROUP",
+        group: "55 MSG", badge: "55TH MISSION SUPPORT GROUP",
         name: "55th Civil Engineer Squadron",
         subtitle: "Installation Engineering, Fire Emergency Services & EOD",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55cons": {
-        group: "55 MSG", shortLabel: "CONS", subText: "Contracts",
-        badge: "55TH MISSION SUPPORT GROUP",
+        group: "55 MSG", badge: "55TH MISSION SUPPORT GROUP",
         name: "55th Contracting Squadron (55 CONS)",
         subtitle: "Operational Acquisition & Contracting Support",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55fss": {
-        group: "55 MSG", shortLabel: "55 FSS", subText: "Force Support",
-        badge: "55TH MISSION SUPPORT GROUP",
+        group: "55 MSG", badge: "55TH MISSION SUPPORT GROUP",
         name: "55th Force Support Squadron",
         subtitle: "MPF, M&FRC, Dining, Lodging & Recreation",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55lrs": {
-        group: "55 MSG", shortLabel: "55 LRS", subText: "Logistics",
-        badge: "55TH MISSION SUPPORT GROUP",
+        group: "55 MSG", badge: "55TH MISSION SUPPORT GROUP",
         name: "55th Logistics Readiness Squadron",
         subtitle: "Supply, Fuels, Vehicle Management & Deployment",
         shirtTel: "402-294-3445", extraDocs: []
       },
       "55sfs": {
-        group: "55 MSG", shortLabel: "55 SFS", subText: "Sec Forces",
-        badge: "55TH MISSION SUPPORT GROUP",
+        group: "55 MSG", badge: "55TH MISSION SUPPORT GROUP",
         name: "55th Security Forces Squadron",
         subtitle: "Base Defense, Law Enforcement & Guard Mount",
         shirtTel: "402-294-6110", extraDocs: []
       },
-
-      // --- 55TH MAINTENANCE GROUP & COMM GROUP ---
       "55amxs": {
-        group: "55 MXG/CG", shortLabel: "55 AMXS", subText: "Aircraft Mx",
-        badge: "55TH MAINTENANCE GROUP",
+        group: "55 MXG/CG", badge: "55TH MAINTENANCE GROUP",
         name: "55th Aircraft Maintenance Squadron",
         subtitle: "Flightline Aircraft Generation & Avionics Support",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55mxs": {
-        group: "55 MXG/CG", shortLabel: "55 MXS", subText: "Backshop Mx",
-        badge: "55TH MAINTENANCE GROUP",
+        group: "55 MXG/CG", badge: "55TH MAINTENANCE GROUP",
         name: "55th Maintenance Squadron",
         subtitle: "Backshop Maintenance, Fabrication & Munitions",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55cys": {
-        group: "55 MXG/CG", shortLabel: "55 CYS", subText: "Cyber",
-        badge: "55TH COMMUNICATIONS GROUP",
+        group: "55 MXG/CG", badge: "55TH COMMUNICATIONS GROUP",
         name: "55th Cyberspace Squadron",
         subtitle: "Base Cyber Defense & Communications Infrastructure",
         shirtTel: "402-294-3725", extraDocs: []
       },
       "55scs": {
-        group: "55 MXG/CG", shortLabel: "55 SCS", subText: "Strat Comm",
-        badge: "55TH COMMUNICATIONS GROUP",
+        group: "55 MXG/CG", badge: "55TH COMMUNICATIONS GROUP",
         name: "55th Strategic Communications Squadron",
         subtitle: "Strategic Command & Control Communications",
         shirtTel: "402-294-3725", extraDocs: []
       },
-
-      // --- 55TH MEDICAL GROUP & WING STAFF ---
       "55omrs": {
-        group: "55 MDG/WG", shortLabel: "55 OMRS", subText: "Medical",
-        badge: "55TH MEDICAL GROUP",
+        group: "55 MDG/WG", badge: "55TH MEDICAL GROUP",
         name: "55th Operational Medical Readiness Squadron",
         subtitle: "Aerospace Medicine, Dental, Mental Health & Public Health",
         shirtTel: "402-232-2273", extraDocs: []
       },
       "55mhos": {
-        group: "55 MDG/WG", shortLabel: "55 MHOS", subText: "Hospital",
-        badge: "55TH MEDICAL GROUP",
+        group: "55 MDG/WG", badge: "55TH MEDICAL GROUP",
         name: "55th Healthcare Operations & Support (MDOS / MDSS)",
         subtitle: "Ehrling Bergquist Clinic Operations & Support",
         shirtTel: "402-232-2273", extraDocs: []
       },
       "55wsa": {
-        group: "55 MDG/WG", shortLabel: "55 WSA", subText: "Wing Staff",
-        badge: "55TH WING STAFF AGENCIES",
+        group: "55 MDG/WG", badge: "55TH WING STAFF AGENCIES",
         name: "55th Wing Staff & 55th Comptroller Squadron (55 CPTS)",
         subtitle: "Wing Staff Agencies, Finance, Legal, Safety & CP",
         shirtTel: "402-294-3725", extraDocs: []
       },
-
-      // --- 95TH WING (FORMER 595 C2G) ---
       "1accs": {
-        group: "95 WG", shortLabel: "1 ACCS", subText: "E-4B Ops",
-        badge: "95TH WING • AFGSC",
+        group: "95 WG", badge: "95TH WING • AFGSC",
         name: "1st Airborne Command Control Squadron (1 ACCS)",
         subtitle: "E-4B Nightwatch National Airborne Operations Center",
         shirtTel: "402-294-5696", extraDocs: []
       },
       "95oss": {
-        group: "95 WG", shortLabel: "95 OSS", subText: "Ops & Mx",
-        badge: "95TH WING • AFGSC",
+        group: "95 WG", badge: "95TH WING • AFGSC",
         name: "95th Operations Support & Maintenance (95 OG / 95 MXG)",
         subtitle: "95th OSS, 595th AMXS, 595th SCS & 625th STOS",
         shirtTel: "402-294-6618", extraDocs: []
       },
-
-      // --- 557TH WEATHER WING ---
       "557ww": {
-        group: "557 WW", shortLabel: "557 WW", subText: "Weather",
-        badge: "557TH WEATHER WING",
+        group: "557 WW", badge: "557TH WEATHER WING",
         name: "1st & 2nd Weather Groups (2 WS / 2 WSS / 2 SYOS / 16 WS)",
         subtitle: "America's Weather Wing HQ & Operational Squadrons",
         shirtTel: "402-294-7380", extraDocs: []
       }
     };
 
-    // Render continuous 3-Column button grids under distinct Group Headers
     function renderUnitDirectory() {
       const container = document.getElementById('directoryContainer');
       container.innerHTML = '';
 
       Object.keys(GROUP_HEADERS).forEach(groupCode => {
-        // Create the containing quick-call style outer card
-        const sectionWrapper = document.createElement('div');
-        sectionWrapper.className = 'grid-section';
+        const sectionHeader = document.createElement('h2');
+        sectionHeader.className = 'group-header';
+        sectionHeader.innerText = GROUP_HEADERS[groupCode];
+        container.appendChild(sectionHeader);
 
-        // Add the yellow category label
-        const label = document.createElement('div');
-        label.className = 'section-label';
-        label.innerText = GROUP_HEADERS[groupCode];
-        sectionWrapper.appendChild(label);
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'unit-list';
 
-        // Create the 3-column inner grid layout
-        const gridDiv = document.createElement('div');
-        gridDiv.className = 'button-grid';
-
-        // Filter and add each unit belonging to this group as a button
         Object.keys(OFFUTT_UNITS).forEach(key => {
           const u = OFFUTT_UNITS[key];
           if (u.group === groupCode) {
             const btn = document.createElement('button');
-            btn.className = 'grid-btn';
+            btn.className = 'unit-card';
             btn.onclick = () => openUnit(key);
             btn.innerHTML = `
-              <h3>${u.shortLabel}</h3>
-              <span>${u.subText}</span>
+              <span class="arrow-icon">→</span>
+              <span class="doc-tag blue">${u.badge}</span>
+              <h3 class="doc-title">${u.name}</h3>
+              <p class="doc-desc">${u.subtitle}</p>
             `;
-            gridDiv.appendChild(btn);
+            groupDiv.appendChild(btn);
           }
         });
 
-        sectionWrapper.appendChild(gridDiv);
-        container.appendChild(sectionWrapper);
+        container.appendChild(groupDiv);
       });
     }
 
-    // Open Selected Squadron Hub
     function openUnit(unitKey) {
       const u = OFFUTT_UNITS[unitKey];
       if (!u) return;
@@ -701,7 +695,7 @@
       document.getElementById('qrImage').src =
         'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(window.location.href);
 
-      // Render Phone Grid (8 Core Base Numbers + Unit 1st Sergeant Button)
+      // RENDERING OF INDIVIDUAL UNIT 3x3 EMERGENCY DIAL GRID
       const grid = document.getElementById('phoneGrid');
       grid.innerHTML = '';
       const phones = [
@@ -717,7 +711,6 @@
         `;
       });
 
-      // Render Local + Shared Documents
       const docList = document.getElementById('docList');
       docList.innerHTML = '';
       const allDocs = [...(u.extraDocs || []), ...SHARED_OFFUTT_DOCS];
@@ -735,7 +728,6 @@
       window.scrollTo(0, 0);
     }
 
-    // Return to Main Squadron Page Selector
     function showDirectory() {
       const baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
       window.history.pushState({ path: baseUrl }, '', baseUrl);
