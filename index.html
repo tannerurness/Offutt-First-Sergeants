@@ -385,846 +385,691 @@
 </head>
 
 <body>
-  <main>
 
-    <!-- Landing Page -->
-    <section id="directoryView">
-      <header>
-        <div class="icon" aria-hidden="true">💎</div>
-        <span class="resource-badge">Team Offutt • First Sergeant Resource Hub</span>
-        <h1>Choose Your Unit</h1>
-        <p class="subtitle">
-          Select a unit to open its dedicated First Sergeant Resource Hub.
-          Each page includes unit contacts, emergency quick-call information,
-          a QR code, and shared resource links.
-        </p>
-      </header>
+  <!-- This content is visible immediately, even if JavaScript is blocked -->
+  <main id="directoryView">
 
-      <input
-        type="text"
-        id="unitSearchInput"
-        class="search-input"
-        placeholder="Search units..."
-        oninput="filterUnits()"
-      >
+    <header>
+      <div class="compass-icon" aria-hidden="true">💎</div>
+      <span class="resource-badge">Team Offutt • First Sergeant Resource Hub</span>
+      <h1>Choose Your Unit</h1>
+      <p class="subtitle">
+        Select a unit to open its dedicated First Sergeant Resource Hub.
+      </p>
+    </header>
 
-      <section class="directory-panel">
-        <div class="section-label">Unit Resource Hubs</div>
-        <p class="directory-note">
-          Contact data below is based on the 2025–26 Offutt AFB Telephone Directory.
-          Entries marked TBD should be verified and updated before publication.
-        </p>
+    <div class="quick-call-section">
+      <div class="section-label">Installation Emergency Contacts</div>
 
-        <div class="unit-grid" id="unitGrid"></div>
-      </section>
+      <div class="quick-call-grid">
+        <a href="tel:911" class="call-btn emergency">
+          <h3>911</h3>
+          <span>On-Base Emergency</span>
+        </a>
 
-      <div class="admin-note">
-        <strong>Administrator note:</strong> Replace any <code>TBD</code> entries
-        with approved duty contact information. Do not add personal phone numbers
-        or information not approved for release.
+        <a href="tel:988" class="call-btn">
+          <h3>988, Press 1</h3>
+          <span>Military Crisis Line</span>
+        </a>
+
+        <a href="tel:4022943000" class="call-btn">
+          <h3>Off-Base Emergency</h3>
+          <span>402-294-3000</span>
+        </a>
+
+        <a href="tel:4022943725" class="call-btn">
+          <h3>Command Post</h3>
+          <span>402-294-3725</span>
+        </a>
+
+        <a href="tel:4022946244" class="call-btn">
+          <h3>Chaplain</h3>
+          <span>402-294-6244</span>
+        </a>
+
+        <a href="tel:4022329999" class="call-btn">
+          <h3>SARC 24/7</h3>
+          <span>402-232-9999</span>
+        </a>
+
+        <a href="tel:4022944329" class="call-btn">
+          <h3>M&FRC</h3>
+          <span>402-294-4329</span>
+        </a>
+
+        <a href="tel:4022944245" class="call-btn">
+          <h3>Central Security</h3>
+          <span>402-294-4245</span>
+        </a>
+
+        <a href="tel:4022945677" class="call-btn">
+          <h3>Crime in Progress</h3>
+          <span>402-294-5677</span>
+        </a>
       </div>
-    </section>
+    </div>
 
-    <!-- Unit-Specific Hub -->
-    <section id="hubView" class="hidden">
-      <header>
-        <div class="icon" aria-hidden="true">💎</div>
-        <span class="resource-badge">First Sergeant Resource Hub</span>
-        <h1 id="unitTitle">Unit First Sergeant</h1>
-        <p class="subtitle" id="unitSubtitle"></p>
+    <input
+      type="text"
+      id="unitSearch"
+      class="search-input"
+      placeholder="Search units or First Sergeant numbers..."
+      onkeyup="filterUnits()"
+    >
 
-        <div class="button-row">
-          <button class="btn" onclick="copyToClipboard()">Copy Link</button>
-          <a class="btn" href="./">All Units</a>
-        </div>
-      </header>
+    <div class="filters-scroll">
+      <button class="filter-pill active" onclick="showAllUnits(this)">All Units</button>
+      <button class="filter-pill" onclick="filterUnitType('55th Wing', this)">55th Wing</button>
+      <button class="filter-pill" onclick="filterUnitType('Partner Unit', this)">Partner Units</button>
+      <button class="filter-pill" onclick="filterUnitType('Other Unit', this)">Other Units</button>
+    </div>
 
-      <div class="qr-container">
-        <div class="qr-box">
-          <img id="qrImage" src="" alt="QR code for this unit resource hub">
-        </div>
-        <div class="qr-caption">Scan or tap to share this unit hub</div>
-      </div>
+    <div class="document-list" id="unitList">
 
-      <section class="quick-call-section">
-        <div class="section-label">Emergency Quick Call</div>
-        <div class="quick-call-grid" id="quickCallGrid"></div>
-      </section>
+      <!-- 55th Wing -->
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-wing')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Wing</h3>
+        <p class="doc-desc">Main: 402-294-5555 • First Sergeant: 402-294-7187</p>
+      </a>
 
-      <input
-        type="text"
-        id="searchInput"
-        class="search-input"
-        placeholder="Search AFIs, checklists, TRICARE, or Offutt resources..."
-        oninput="applyFilters()"
-      >
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-comptroller')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Comptroller Squadron</h3>
+        <p class="doc-desc">Main: 402-294-2022 • First Sergeant: 402-294-7187</p>
+      </a>
 
-      <nav class="filters-scroll" aria-label="Resource categories">
-        <button class="filter-pill active" onclick="setCategory('all', this)">All</button>
-        <button class="filter-pill" onclick="setCategory('AFIs', this)">AFIs</button>
-        <button class="filter-pill" onclick="setCategory('Tools', this)">Tools</button>
-        <button class="filter-pill" onclick="setCategory('Checklist', this)">Checklist</button>
-        <button class="filter-pill" onclick="setCategory('Offutt', this)">Offutt AFB</button>
-        <button class="filter-pill" onclick="setCategory('Unit', this)">Unit</button>
-      </nav>
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-communications')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Communications Squadron</h3>
+        <p class="doc-desc">Main: 402-294-5901 • First Sergeant: 402-294-6981</p>
+      </a>
 
-      <div class="document-list" id="documentList"></div>
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-strategic-communications')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Strategic Communications Squadron</h3>
+        <p class="doc-desc">Main: 402-294-2100 • First Sergeant: 402-294-1143</p>
+      </a>
 
-      <div class="admin-note">
-        <strong>Reminder:</strong> Validate unit contact information, resource links,
-        and local support channels before publishing or distributing this page.
-      </div>
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-maintenance-group')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Maintenance Group</h3>
+        <p class="doc-desc">Main: 402-294-4030 • First Sergeant: 402-232-0973</p>
+      </a>
 
-      <footer id="footerText"></footer>
-    </section>
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-aircraft-maintenance')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Aircraft Maintenance Squadron</h3>
+        <p class="doc-desc">Main: 402-294-1230 • First Sergeant: 402-294-2524</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-maintenance-squadron')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Maintenance Squadron</h3>
+        <p class="doc-desc">Main: 402-294-3777 • First Sergeant: 402-294-6644</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-maintenance-operations')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Maintenance Operations</h3>
+        <p class="doc-desc">Main: 402-294-5286 • First Sergeant: 402-232-0973</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-medical-group')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Medical Group</h3>
+        <p class="doc-desc">Main: 402-294-7311 • First Sergeant: 402-294-9182</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-force-support')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Force Support Squadron</h3>
+        <p class="doc-desc">Main: 402-294-2055 • First Sergeant: 402-232-4282</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-contracting')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Contracting Squadron</h3>
+        <p class="doc-desc">Main: 402-232-6358 • First Sergeant: 402-651-2635</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-security-forces')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Security Forces Squadron</h3>
+        <p class="doc-desc">Main: 402-294-2998 • First Sergeant: 402-294-7866</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('55th-operations-support')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">55th Operations Support Squadron</h3>
+        <p class="doc-desc">Main: 402-294-5846 • First Sergeant: 402-294-6043</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="55th Wing" onclick="openUnitHub('97th-intelligence')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">55TH WING</span>
+        <h3 class="doc-title">97th Intelligence Squadron</h3>
+        <p class="doc-desc">Main: 402-232-9700 • First Sergeant: 402-232-9701</p>
+      </a>
+
+      <!-- Major Partner Units -->
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Partner Unit" onclick="openUnitHub('usstratcom')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">PARTNER UNIT</span>
+        <h3 class="doc-title">U.S. Strategic Command</h3>
+        <p class="doc-desc">Main: 402-294-0557 • First Sergeant: 402-294-5888</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Partner Unit" onclick="openUnitHub('557th-weather-wing')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">PARTNER UNIT</span>
+        <h3 class="doc-title">557th Weather Wing</h3>
+        <p class="doc-desc">Main: 402-232-0343 • First Sergeant: 402-294-9899</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Partner Unit" onclick="openUnitHub('170th-group')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">PARTNER UNIT</span>
+        <h3 class="doc-title">170th Group</h3>
+        <p class="doc-desc">Main: 402-294-7811 • First Sergeant: 402-708-4958</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Partner Unit" onclick="openUnitHub('95th-wing')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">PARTNER UNIT</span>
+        <h3 class="doc-title">95th Wing</h3>
+        <p class="doc-desc">Main: TBD • First Sergeant: TBD</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Partner Unit" onclick="openUnitHub('1st-accs')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">PARTNER UNIT</span>
+        <h3 class="doc-title">1st Airborne Command and Control Squadron</h3>
+        <p class="doc-desc">Main: TBD • First Sergeant: 402-294-0573</p>
+      </a>
+
+      <!-- Other Units -->
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Other Unit" onclick="openUnitHub('20th-is')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">OTHER UNIT</span>
+        <h3 class="doc-title">20th Intelligence Squadron</h3>
+        <p class="doc-desc">Main: 402-294-7081 • First Sergeant: 402-294-4872</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Other Unit" onclick="openUnitHub('29th-trs-ola')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">OTHER UNIT</span>
+        <h3 class="doc-title">29th Training Squadron OL-A</h3>
+        <p class="doc-desc">Main: 402-232-6474 • First Sergeant: TBD</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Other Unit" onclick="openUnitHub('49th-is')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">OTHER UNIT</span>
+        <h3 class="doc-title">49th Intelligence Squadron</h3>
+        <p class="doc-desc">Main: TBD • First Sergeant: TBD</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Other Unit" onclick="openUnitHub('52d-nws')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">OTHER UNIT</span>
+        <h3 class="doc-title">52d Network Warfare Squadron</h3>
+        <p class="doc-desc">Main: TBD • First Sergeant: TBD</p>
+      </a>
+
+      <a href="javascript:void(0)" class="doc-card unit-card" data-type="Other Unit" onclick="openUnitHub('343rd-rcs')">
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">OTHER UNIT</span>
+        <h3 class="doc-title">343rd Recruiting Squadron</h3>
+        <p class="doc-desc">Operations: 402-232-3499 • First Sergeant: TBD</p>
+      </a>
+
+    </div>
+
+    <footer>
+      <p>
+        Team Offutt First Sergeant Resource Hub<br>
+        Contact information should be validated by the responsible unit before publication.
+      </p>
+    </footer>
 
   </main>
 
+  <!-- Unit page display; hidden until a unit is selected -->
+  <main id="hubView" class="hidden">
+
+    <header>
+      <div class="compass-icon" aria-hidden="true">💎</div>
+      <span class="resource-badge">First Sergeant Resource Hub</span>
+      <h1 id="hubUnitName">Unit First Sergeant</h1>
+      <p class="subtitle" id="hubUnitInfo"></p>
+
+      <div class="button-row">
+        <button class="btn-copy" onclick="copyToClipboard()">Copy Link</button>
+        <button class="btn-copy" onclick="returnToDirectory()">All Units</button>
+      </div>
+    </header>
+
+    <div class="quick-call-section">
+      <div class="section-label">Unit and Emergency Quick Call</div>
+
+      <div class="quick-call-grid">
+        <a href="tel:911" class="call-btn emergency">
+          <h3>911</h3>
+          <span>Emergency</span>
+        </a>
+
+        <a href="tel:988" class="call-btn">
+          <h3>988, Press 1</h3>
+          <span>Crisis Line</span>
+        </a>
+
+        <a href="tel:4022943725" class="call-btn">
+          <h3>Command Post</h3>
+          <span>402-294-3725</span>
+        </a>
+
+        <a id="unitMainCall" href="#" class="call-btn">
+          <h3>Unit Main</h3>
+          <span id="unitMainNumber">TBD</span>
+        </a>
+
+        <a id="unitFirstSergeantCall" href="#" class="call-btn">
+          <h3>1st Sergeant</h3>
+          <span id="unitFirstSergeantNumber">TBD</span>
+        </a>
+
+        <a href="tel:4022946244" class="call-btn">
+          <h3>Chaplain</h3>
+          <span>402-294-6244</span>
+        </a>
+      </div>
+    </div>
+
+    <input
+      type="text"
+      id="resourceSearch"
+      class="search-input"
+      placeholder="Search resources..."
+      onkeyup="filterResources()"
+    >
+
+    <div class="filters-scroll">
+      <button class="filter-pill active" onclick="filterResourceCategory('all', this)">All</button>
+      <button class="filter-pill" onclick="filterResourceCategory('AFIs', this)">AFIs</button>
+      <button class="filter-pill" onclick="filterResourceCategory('Tools', this)">Tools</button>
+      <button class="filter-pill" onclick="filterResourceCategory('Support', this)">Support</button>
+    </div>
+
+    <div class="document-list" id="resourceList">
+
+      <a
+        href="https://static.e-publishing.af.mil/production/1/saf_aa/publication/afh33-337/afh33-337.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="doc-card resource-card"
+        data-category="Tools"
+      >
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">GDE-01</span>
+        <h3 class="doc-title">DAFH 33-337 — The Tongue and Quill</h3>
+        <p class="doc-desc">Air Force writing and administrative correspondence standards.</p>
+      </a>
+
+      <a
+        href="https://static.e-publishing.af.mil/production/1/af_a1/publication/dafi36-2903/dafi36-2903.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="doc-card resource-card"
+        data-category="AFIs"
+      >
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">AFI-01</span>
+        <h3 class="doc-title">DAFI 36-2903 — Dress and Personal Appearance</h3>
+        <p class="doc-desc">Uniform wear and personal appearance standards.</p>
+      </a>
+
+      <a
+        href="https://static.e-publishing.af.mil/production/1/af_a1/publication/dafi36-3003/dafi36-3003.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="doc-card resource-card"
+        data-category="AFIs"
+      >
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag">AFI-02</span>
+        <h3 class="doc-title">DAFI 36-3003 — Military Leave Program</h3>
+        <p class="doc-desc">Emergency leave, parental leave, and pass policy.</p>
+      </a>
+
+      <a
+        href="https://www.militaryonesource.mil/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="doc-card resource-card"
+        data-category="Support"
+      >
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">SUP-01</span>
+        <h3 class="doc-title">Military OneSource</h3>
+        <p class="doc-desc">24/7 non-medical counseling, financial consultation, and family support.</p>
+      </a>
+
+      <a
+        href="https://www.redcross.org/get-help/military-families/emergency-communication.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="doc-card resource-card"
+        data-category="Support"
+      >
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag green">SUP-02</span>
+        <h3 class="doc-title">American Red Cross Emergency Communication</h3>
+        <p class="doc-desc">Emergency family communication and emergency-leave verification.</p>
+      </a>
+
+      <a
+        href="https://www.offutt.af.mil/Resources/Newcomer/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="doc-card resource-card"
+        data-category="Support"
+      >
+        <span class="arrow-icon">→</span>
+        <span class="doc-tag blue">OFFUTT-01</span>
+        <h3 class="doc-title">Offutt AFB Newcomer and M&FRC Resources</h3>
+        <p class="doc-desc">Military and Family Readiness, legal, finance, and newcomer resources.</p>
+      </a>
+
+    </div>
+  </main>
+
   <script>
-    /*
-      ================================================================
-      UNIT DIRECTORY DATA
-      Source: 2025–26 Offutt AFB Telephone Directory.
-
-      "main" is the unit's listed commander, CSS, operations, or main-line
-      contact when a specific main line was not provided.
-
-      "firstSergeant" is marked TBD when the directory did not clearly list one.
-      ================================================================
-    */
-
-    const UNITS = [
-      {
-        slug: "55th-wing",
+    const unitData = {
+      "55th-wing": {
         name: "55th Wing",
-        type: "Host Wing",
-        mission: "Host-wing command resources and installation support.",
         main: "402-294-5555",
         firstSergeant: "402-294-7187"
       },
-      {
-        slug: "55th-comptroller-squadron",
+      "55th-comptroller": {
         name: "55th Comptroller Squadron",
-        type: "55th Wing",
-        mission: "Financial management and comptroller resources.",
         main: "402-294-2022",
         firstSergeant: "402-294-7187"
       },
-      {
-        slug: "55th-communications-group",
-        name: "55th Communications Group",
-        type: "55th Wing",
-        mission: "Communications and information technology support.",
-        main: "402-294-4108",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-communications-squadron",
+      "55th-communications": {
         name: "55th Communications Squadron",
-        type: "55th Communications Group",
-        mission: "Communications Squadron personnel support.",
         main: "402-294-5901",
         firstSergeant: "402-294-6981"
       },
-      {
-        slug: "55th-strategic-communications-squadron",
+      "55th-strategic-communications": {
         name: "55th Strategic Communications Squadron",
-        type: "55th Communications Group",
-        mission: "Strategic communications personnel support.",
         main: "402-294-2100",
         firstSergeant: "402-294-1143"
       },
-      {
-        slug: "55th-maintenance-group",
+      "55th-maintenance-group": {
         name: "55th Maintenance Group",
-        type: "55th Wing",
-        mission: "Maintenance group personnel support.",
         main: "402-294-4030",
         firstSergeant: "402-232-0973"
       },
-      {
-        slug: "55th-aircraft-maintenance-squadron",
+      "55th-aircraft-maintenance": {
         name: "55th Aircraft Maintenance Squadron",
-        type: "55th Maintenance Group",
-        mission: "Aircraft maintenance personnel support.",
         main: "402-294-1230",
         firstSergeant: "402-294-2524"
       },
-      {
-        slug: "55th-maintenance-squadron",
+      "55th-maintenance-squadron": {
         name: "55th Maintenance Squadron",
-        type: "55th Maintenance Group",
-        mission: "Maintenance Squadron personnel support.",
         main: "402-294-3777",
         firstSergeant: "402-294-6644"
       },
-      {
-        slug: "55th-maintenance-operations",
+      "55th-maintenance-operations": {
         name: "55th Maintenance Operations",
-        type: "55th Maintenance Group",
-        mission: "Maintenance operations personnel support.",
-        main: "402-294-2184",
+        main: "402-294-5286",
         firstSergeant: "402-232-0973"
       },
-      {
-        slug: "55th-medical-group",
+      "55th-medical-group": {
         name: "55th Medical Group",
-        type: "55th Wing",
-        mission: "Medical group personnel support.",
         main: "402-294-7311",
         firstSergeant: "402-294-9182"
       },
-      {
-        slug: "55th-operational-medical-readiness-squadron",
-        name: "55th Operational Medical Readiness Squadron",
-        type: "55th Medical Group",
-        mission: "Operational medical readiness personnel support.",
-        main: "402-294-9027",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-dental-squadron",
-        name: "55th Dental Squadron",
-        type: "55th Medical Group",
-        mission: "Dental Squadron personnel support.",
-        main: "402-294-2747",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-healthcare-operations-squadron",
-        name: "55th Healthcare Operations Squadron",
-        type: "55th Medical Group",
-        mission: "Healthcare operations personnel support.",
-        main: "402-294-8581",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-medical-support-squadron",
-        name: "55th Medical Support Squadron",
-        type: "55th Medical Group",
-        mission: "Medical support personnel resources.",
-        main: "402-294-7462",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-mission-support-group",
-        name: "55th Mission Support Group",
-        type: "55th Wing",
-        mission: "Mission support group personnel resources.",
-        main: "402-294-5552",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-civil-engineer-squadron",
-        name: "55th Civil Engineer Squadron",
-        type: "55th Mission Support Group",
-        mission: "Civil engineer personnel resources.",
-        main: "402-294-5501",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-contracting-squadron",
-        name: "55th Contracting Squadron",
-        type: "55th Mission Support Group",
-        mission: "Contracting Squadron personnel resources.",
-        main: "402-232-6358",
-        firstSergeant: "402-651-2635"
-      },
-      {
-        slug: "55th-force-support-squadron",
+      "55th-force-support": {
         name: "55th Force Support Squadron",
-        type: "55th Mission Support Group",
-        mission: "Force support personnel and family resources.",
         main: "402-294-2055",
         firstSergeant: "402-232-4282"
       },
-      {
-        slug: "55th-logistics-readiness-squadron",
-        name: "55th Logistics Readiness Squadron",
-        type: "55th Mission Support Group",
-        mission: "Logistics readiness personnel resources.",
-        main: "402-294-3445",
-        firstSergeant: "402-271-3097"
+      "55th-contracting": {
+        name: "55th Contracting Squadron",
+        main: "402-232-6358",
+        firstSergeant: "402-651-2635"
       },
-      {
-        slug: "55th-security-forces-squadron",
+      "55th-security-forces": {
         name: "55th Security Forces Squadron",
-        type: "55th Mission Support Group",
-        mission: "Security Forces personnel resources.",
         main: "402-294-2998",
         firstSergeant: "402-294-7866"
       },
-      {
-        slug: "55th-operations-group",
-        name: "55th Operations Group",
-        type: "55th Wing",
-        mission: "Operations group personnel support.",
-        main: "402-294-5468",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "38th-reconnaissance-squadron",
-        name: "38th Reconnaissance Squadron",
-        type: "55th Operations Group",
-        mission: "Reconnaissance Squadron personnel support.",
-        main: "402-294-0038",
-        firstSergeant: "402-232-7708"
-      },
-      {
-        slug: "45th-reconnaissance-squadron",
-        name: "45th Reconnaissance Squadron",
-        type: "55th Operations Group",
-        mission: "Reconnaissance Squadron personnel support.",
-        main: "402-294-6078",
-        firstSergeant: "402-294-4915"
-      },
-      {
-        slug: "55th-intelligence-support-squadron",
-        name: "55th Intelligence Support Squadron",
-        type: "55th Operations Group",
-        mission: "Intelligence support personnel resources.",
-        main: "402-294-0381",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "55th-operations-support-squadron",
+      "55th-operations-support": {
         name: "55th Operations Support Squadron",
-        type: "55th Operations Group",
-        mission: "Operations support personnel resources.",
         main: "402-294-5846",
         firstSergeant: "402-294-6043"
       },
-      {
-        slug: "97th-intelligence-squadron",
+      "97th-intelligence": {
         name: "97th Intelligence Squadron",
-        type: "55th Operations Group",
-        mission: "Intelligence Squadron personnel resources.",
         main: "402-232-9700",
         firstSergeant: "402-232-9701"
       },
-      {
-        slug: "338th-combat-training-squadron",
-        name: "338th Combat Training Squadron",
-        type: "55th Operations Group",
-        mission: "Combat training personnel resources.",
-        main: "402-294-0338",
-        firstSergeant: "402-232-4776"
-      },
-      {
-        slug: "343rd-reconnaissance-squadron",
-        name: "343rd Reconnaissance Squadron",
-        type: "55th Operations Group",
-        mission: "Reconnaissance Squadron personnel resources.",
-        main: "402-232-0343",
-        firstSergeant: "402-294-9899"
-      },
-      {
-        slug: "us-strategic-command",
+      "usstratcom": {
         name: "U.S. Strategic Command",
-        type: "Major Partner Unit",
-        mission: "Major partner organization personnel resources.",
         main: "402-294-0557",
         firstSergeant: "402-294-5888"
       },
-      {
-        slug: "557th-weather-wing",
+      "557th-weather-wing": {
         name: "557th Weather Wing",
-        type: "Major Partner Unit",
-        mission: "Weather Wing personnel resources.",
-        main: "402-232-0333",
-        firstSergeant: "TBD"
+        main: "402-232-0343",
+        firstSergeant: "402-294-9899"
       },
-      {
-        slug: "170th-group",
+      "170th-group": {
         name: "170th Group",
-        type: "Major Partner Unit",
-        mission: "170th Group personnel resources.",
         main: "402-294-7811",
         firstSergeant: "402-708-4958"
       },
-      {
-        slug: "170th-operations-support-squadron",
-        name: "170th Operations Support Squadron",
-        type: "170th Group",
-        mission: "Operations support personnel resources.",
-        main: "402-294-2462",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "238th-combat-training-squadron",
-        name: "238th Combat Training Squadron",
-        type: "170th Group",
-        mission: "Combat training personnel resources.",
-        main: "402-232-0276",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "170th-intelligence-support-squadron",
-        name: "170th Intelligence Support Squadron",
-        type: "170th Group",
-        mission: "Intelligence support personnel resources.",
-        main: "402-232-9287",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "170th-maintenance-support-squadron",
-        name: "170th Maintenance Support Squadron",
-        type: "170th Group",
-        mission: "Maintenance support personnel resources.",
-        main: "402-294-4840",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "95th-wing",
+      "95th-wing": {
         name: "95th Wing",
-        type: "Major Partner Unit",
-        mission: "95th Wing personnel resources.",
-        main: "402-294-9501",
+        main: "TBD",
         firstSergeant: "TBD"
       },
-      {
-        slug: "1st-airborne-command-and-control-squadron",
+      "1st-accs": {
         name: "1st Airborne Command and Control Squadron",
-        type: "95th Wing",
-        mission: "Airborne command and control personnel resources.",
-        main: "402-294-5630",
+        main: "TBD",
         firstSergeant: "402-294-0573"
       },
-      {
-        slug: "595th-aircraft-maintenance-squadron",
-        name: "595th Aircraft Maintenance Squadron",
-        type: "95th Wing",
-        mission: "Aircraft maintenance personnel resources.",
-        main: "402-294-2334",
-        firstSergeant: "402-232-7398"
-      },
-      {
-        slug: "595th-strategic-communications-squadron",
-        name: "595th Strategic Communications Squadron",
-        type: "95th Wing",
-        mission: "Strategic communications personnel resources.",
-        main: "TBD",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "625th-strategic-operations-squadron",
-        name: "625th Strategic Operations Squadron",
-        type: "95th Wing",
-        mission: "Strategic operations personnel resources.",
-        main: "TBD",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "20th-intelligence-squadron",
+      "20th-is": {
         name: "20th Intelligence Squadron",
-        type: "Other Partner Unit",
-        mission: "Intelligence Squadron personnel resources.",
         main: "402-294-7081",
         firstSergeant: "402-294-4872"
       },
-      {
-        slug: "29th-training-squadron-ol-a",
+      "29th-trs-ola": {
         name: "29th Training Squadron OL-A",
-        type: "Other Partner Unit",
-        mission: "Training Squadron operating-location resources.",
         main: "402-232-6474",
         firstSergeant: "TBD"
       },
-      {
-        slug: "49th-intelligence-squadron",
+      "49th-is": {
         name: "49th Intelligence Squadron",
-        type: "Other Partner Unit",
-        mission: "Intelligence Squadron personnel resources.",
-        main: "402-294-0568",
-        firstSergeant: "402-232-2540"
+        main: "TBD",
+        firstSergeant: "TBD"
       },
-      {
-        slug: "52d-network-warfare-squadron",
+      "52d-nws": {
         name: "52d Network Warfare Squadron",
-        type: "Other Partner Unit",
-        mission: "Network warfare personnel resources.",
-        main: "402-232-1257",
-        firstSergeant: "402-232-0610"
+        main: "TBD",
+        firstSergeant: "TBD"
       },
-      {
-        slug: "343rd-recruiting-squadron",
+      "343rd-rcs": {
         name: "343rd Recruiting Squadron",
-        type: "Other Partner Unit",
-        mission: "Offutt AFB and dispersed recruiter guides, helplines, and tools.",
         main: "402-232-3499",
         firstSergeant: "TBD"
-      },
-      {
-        slug: "774th-enterprise-sourcing-squadron",
-        name: "774th Enterprise Sourcing Squadron",
-        type: "Other Partner Unit",
-        mission: "Enterprise sourcing personnel resources.",
-        main: "402-232-5319",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "civil-air-patrol",
-        name: "Civil Air Patrol",
-        type: "Other Partner Unit",
-        mission: "Civil Air Patrol liaison and administration resources.",
-        main: "402-294-4597",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "defense-commissary-agency",
-        name: "Defense Commissary Agency",
-        type: "Other Partner Unit",
-        mission: "Commissary contact and support information.",
-        main: "402-938-0575",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "defense-courier-service",
-        name: "Defense Courier Service",
-        type: "Other Partner Unit",
-        mission: "Defense Courier Service administration resources.",
-        main: "402-294-5354",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "defense-pow-mia-accounting-agency",
-        name: "Defense POW/MIA Accounting Agency",
-        type: "Other Partner Unit",
-        mission: "DPAA CONUS Annex contact resources.",
-        main: "571-270-2540",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "det-1-aftac",
-        name: "Detachment 1, Air Force Technical Applications Center",
-        type: "Other Partner Unit",
-        mission: "Detachment contact resources.",
-        main: "402-232-1916",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "navy-reserve-center",
-        name: "Navy Reserve Center",
-        type: "Other Partner Unit",
-        mission: "Navy Reserve Center support resources.",
-        main: "402-232-1710",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "offutt-communications-support-element",
-        name: "Offutt Communications Support Element",
-        type: "Other Partner Unit",
-        mission: "Communications support element contact resources.",
-        main: "402-294-2179",
-        firstSergeant: "TBD"
-      },
-      {
-        slug: "us-heartland-of-america-band",
-        name: "U.S. Heartland of America Band",
-        type: "Other Partner Unit",
-        mission: "Band contact and ceremonial support resources.",
-        main: "402-294-6046",
-        firstSergeant: "TBD"
       }
-    ];
+    };
 
-    const SHARED_RESOURCES = [
-      {
-        category: "Tools",
-        tag: "GDE-01",
-        title: "DAFH 33-337 — The Tongue and Quill",
-        desc: "Air Force writing, memorandums, and administrative correspondence standards.",
-        url: "https://static.e-publishing.af.mil/production/1/saf_aa/publication/afh33-337/afh33-337.pdf"
-      },
-      {
-        category: "AFIs",
-        tag: "AFI-01",
-        title: "DAFI 36-2903 — Dress and Personal Appearance",
-        desc: "Standards for uniform wear and grooming.",
-        url: "https://static.e-publishing.af.mil/production/1/af_a1/publication/dafi36-2903/dafi36-2903.pdf"
-      },
-      {
-        category: "AFIs",
-        tag: "AFI-02",
-        title: "DAFI 36-2406 — Officer & Enlisted Evaluations",
-        desc: "Policy for EPBs, OPBs, feedbacks, and performance evaluations.",
-        url: "https://static.e-publishing.af.mil/production/1/af_a1/publication/afi36-2406/afi36-2406.pdf"
-      },
-      {
-        category: "AFIs",
-        tag: "AFI-03",
-        title: "DAFI 36-3003 — Military Leave Program",
-        desc: "Emergency leave, parental leave, convalescent leave, and pass policies.",
-        url: "https://static.e-publishing.af.mil/production/1/af_a1/publication/dafi36-3003/dafi36-3003.pdf"
-      },
-      {
-        category: "Offutt",
-        tag: "OFFUTT-01",
-        color: "blue",
-        title: "Offutt AFB Newcomer and M&FRC Resources",
-        desc: "Military and Family Readiness, Air Force Aid Society, legal, finance, and newcomer resources.",
-        url: "https://www.offutt.af.mil/Resources/Newcomer/"
-      },
-      {
-        category: "Checklist",
-        tag: "CHK-01",
-        color: "green",
-        title: "American Red Cross Emergency Communication",
-        desc: "Emergency leave verification and family emergency communication support.",
-        url: "https://www.redcross.org/get-help/military-families/emergency-communication.html"
-      },
-      {
-        category: "Tools",
-        tag: "GDE-02",
-        title: "Military OneSource",
-        desc: "Non-medical counseling, financial consultation, and family support.",
-        url: "https://www.militaryonesource.mil/"
-      },
-      {
-        category: "Tools",
-        tag: "TOOL-01",
-        title: "Defense Travel Management Office BAH Calculator",
-        desc: "Find Basic Allowance for Housing rates by ZIP code and pay grade.",
-        url: "https://www.travel.dod.mil/Allowances/Basic-Allowance-for-Housing/BAH-Rate-Lookup/"
-      },
-      {
-        category: "Tools",
-        tag: "TOOL-02",
-        title: "Air Force PT Calculator",
-        desc: "Air Force fitness test resources and calculator.",
-        url: "https://www.usafptcalculator.com/#form-card"
-      }
-    ];
-
-    /*
-      Add unit-specific resources below.
-
-      Example:
-      const UNIT_RESOURCES = {
-        "55th-wing": [
-          {
-            category: "Unit",
-            tag: "UNIT-01",
-            title: "55th Wing Resource Link",
-            desc: "Approved unit-specific resource.",
-            url: "https://example.mil"
-          }
-        ]
-      };
-    */
-
-    const UNIT_RESOURCES = {};
-
-    let selectedUnit = null;
-    let activeCategory = "all";
-
-    function safe(value) {
-      const span = document.createElement("span");
-      span.textContent = value || "";
-      return span.innerHTML;
-    }
-
-    function phoneHref(number) {
-      if (!number || number === "TBD") return "";
-
-      const digits = number.replace(/\D/g, "");
-
-      if (digits.length === 10 || digits.length === 11) {
-        return "tel:" + digits;
+    function normalizePhone(number) {
+      if (!number || number === "TBD") {
+        return "";
       }
 
-      return "";
+      return number.replace(/[^0-9]/g, "");
     }
 
-    function hubUrl(slug) {
-      const url = new URL(window.location.href);
-      url.search = "?unit=" + encodeURIComponent(slug);
-      return url.toString();
+    function updateCallButton(buttonId, phoneNumber) {
+      const button = document.getElementById(buttonId);
+      const digits = normalizePhone(phoneNumber);
+
+      if (digits) {
+        button.href = "tel:" + digits;
+        button.classList.remove("disabled");
+      } else {
+        button.href = "javascript:void(0)";
+        button.classList.add("disabled");
+      }
     }
 
-    function makeDirectory(unitsToShow = UNITS) {
-      const grid = document.getElementById("unitGrid");
+    function openUnitHub(unitKey) {
+      const unit = unitData[unitKey];
 
-      if (!unitsToShow.length) {
-        grid.innerHTML = `
-          <p class="subtitle">
-            No unit matches your search.
-          </p>
-        `;
+      if (!unit) {
         return;
       }
 
-      grid.innerHTML = unitsToShow.map((unit) => `
-        <a class="unit-card" href="${safe(hubUrl(unit.slug))}">
-          <span class="unit-type">${safe(unit.type)}</span>
-          <h3>${safe(unit.name)}</h3>
-          <p>Main: ${safe(unit.main)}<br>1st Sgt: ${safe(unit.firstSergeant)}</p>
-          <span class="arrow">→</span>
-        </a>
-      `).join("");
+      document.getElementById("directoryView").classList.add("hidden");
+      document.getElementById("hubView").classList.remove("hidden");
+
+      document.getElementById("hubUnitName").textContent =
+        unit.name + " First Sergeant";
+
+      document.getElementById("hubUnitInfo").textContent =
+        "Main: " + unit.main + " • First Sergeant: " + unit.firstSergeant;
+
+      document.getElementById("unitMainNumber").textContent = unit.main;
+      document.getElementById("unitFirstSergeantNumber").textContent =
+        unit.firstSergeant;
+
+      updateCallButton("unitMainCall", unit.main);
+      updateCallButton("unitFirstSergeantCall", unit.firstSergeant);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function returnToDirectory() {
+      document.getElementById("hubView").classList.add("hidden");
+      document.getElementById("directoryView").classList.remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
 
     function filterUnits() {
-      const query = document
-        .getElementById("unitSearchInput")
-        .value
-        .toLowerCase()
-        .trim();
+      const query = document.getElementById("unitSearch").value.toLowerCase();
+      const cards = document.querySelectorAll(".unit-card");
 
-      const filtered = UNITS.filter((unit) => {
-        const unitText = `
-          ${unit.name}
-          ${unit.type}
-          ${unit.mission}
-          ${unit.main}
-          ${unit.firstSergeant}
-        `.toLowerCase();
+      cards.forEach((card) => {
+        const cardText = card.innerText.toLowerCase();
 
-        return unitText.includes(query);
+        if (cardText.includes(query)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
       });
-
-      makeDirectory(filtered);
     }
 
-    function makeCall(label, number, emergency = false) {
-      const href = phoneHref(number);
-      const className = emergency ? "call-btn emergency" : "call-btn";
-
-      return `
-        <a
-          class="${className}${href ? "" : " disabled"}"
-          ${href ? `href="${href}"` : ""}
-        >
-          <h3>${safe(label)}</h3>
-          <span>${safe(number || "TBD")}</span>
-        </a>
-      `;
-    }
-
-    function renderCalls(unit) {
-      document.getElementById("quickCallGrid").innerHTML = [
-        makeCall("911", "911", true),
-        makeCall("988, Press 1", "988"),
-        makeCall("Off-Base Emergency", "402-294-3000"),
-        makeCall("Command Post", "402-294-3725"),
-        makeCall("SARC 24/7", "402-232-9999"),
-        makeCall("Chaplain", "402-294-6244"),
-        makeCall("M&FRC", "402-294-4329"),
-        makeCall("Unit Main", unit.main),
-        makeCall("1st Sergeant", unit.firstSergeant)
-      ].join("");
-    }
-
-    function renderResources() {
-      const unitResources = UNIT_RESOURCES[selectedUnit.slug] || [];
-      const resources = [...unitResources, ...SHARED_RESOURCES];
-
-      const query = document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
-
-      const filteredResources = resources.filter((resource) => {
-        const categoryMatch =
-          activeCategory === "all" ||
-          resource.category === activeCategory;
-
-        const searchMatch = `
-          ${resource.tag}
-          ${resource.title}
-          ${resource.desc}
-          ${resource.category}
-        `.toLowerCase().includes(query);
-
-        return categoryMatch && searchMatch;
-      });
-
-      document.getElementById("documentList").innerHTML =
-        filteredResources.map((resource) => `
-          <a
-            href="${safe(resource.url)}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="doc-card"
-          >
-            <span class="arrow-icon">→</span>
-            <span class="doc-tag ${safe(resource.color || "")}">
-              ${safe(resource.tag)}
-            </span>
-            <h3 class="doc-title">${safe(resource.title)}</h3>
-            <p class="doc-desc">${safe(resource.desc)}</p>
-          </a>
-        `).join("") ||
-        `<p class="subtitle">No resources match the current search or filter.</p>`;
-    }
-
-    function setCategory(category, button) {
-      activeCategory = category;
-
-      document.querySelectorAll(".filter-pill").forEach((pill) => {
+    function filterUnitType(type, button) {
+      document.querySelectorAll("#directoryView .filter-pill").forEach((pill) => {
         pill.classList.remove("active");
       });
 
       button.classList.add("active");
-      renderResources();
+
+      document.querySelectorAll(".unit-card").forEach((card) => {
+        if (card.getAttribute("data-type") === type) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
     }
 
-    function applyFilters() {
-      renderResources();
+    function showAllUnits(button) {
+      document.querySelectorAll("#directoryView .filter-pill").forEach((pill) => {
+        pill.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      document.querySelectorAll(".unit-card").forEach((card) => {
+        card.style.display = "block";
+      });
+    }
+
+    function filterResourceCategory(category, button) {
+      document.querySelectorAll("#hubView .filter-pill").forEach((pill) => {
+        pill.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      document.querySelectorAll(".resource-card").forEach((card) => {
+        if (
+          category === "all" ||
+          card.getAttribute("data-category") === category
+        ) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    function filterResources() {
+      const query = document
+        .getElementById("resourceSearch")
+        .value
+        .toLowerCase();
+
+      document.querySelectorAll(".resource-card").forEach((card) => {
+        const cardText = card.innerText.toLowerCase();
+
+        if (cardText.includes(query)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
     }
 
     function copyToClipboard() {
-      navigator.clipboard
-        .writeText(window.location.href)
+      navigator.clipboard.writeText(window.location.href)
         .then(() => {
-          alert(`${selectedUnit.name} Hub link copied to clipboard!`);
+          alert("Hub link copied to clipboard!");
         })
         .catch(() => {
           alert("Copy failed. Please copy the URL from your browser.");
         });
     }
-
-    function showHub(unit) {
-      selectedUnit = unit;
-
-      document.title = `${unit.name} First Sergeant Resource Hub`;
-
-      document.getElementById("directoryView").classList.add("hidden");
-      document.getElementById("hubView").classList.remove("hidden");
-
-      document.getElementById("unitTitle").textContent =
-        `${unit.name} First Sergeant`;
-
-      document.getElementById("unitSubtitle").textContent =
-        `${unit.mission} Main contact: ${unit.main}. First Sergeant: ${unit.firstSergeant}.`;
-
-      document.getElementById("footerText").innerHTML = `
-        <p>
-          ${safe(unit.name)} • Offutt AFB, Nebraska<br>
-          Directory data source: 2025–26 Offutt AFB Telephone Directory.<br>
-          PAI Only — Do not post PII/PHI. Validate contacts before publication.
-        </p>
-      `;
-
-      document.getElementById("qrImage").src =
-        "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
-        encodeURIComponent(window.location.href);
-
-      renderCalls(unit);
-      renderResources();
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      makeDirectory();
-
-      const slug = new URLSearchParams(window.location.search).get("unit");
-      const unit = UNITS.find((item) => item.slug === slug);
-
-      if (unit) {
-        showHub(unit);
-      }
-    });
   </script>
+
 </body>
 </html>
